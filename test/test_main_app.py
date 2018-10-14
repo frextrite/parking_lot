@@ -2,8 +2,14 @@ import sys
 import unittest
 
 from io import StringIO
+from unittest.mock import patch
 
 from parking_lot.app import ParkingLot
+from parking_lot.src.app import (LOT,
+                                 DATA,
+                                 R_NO_COLOR,
+                                 SLOT_NO_REG,
+                                 SLOT_NO_COLOR)
 
 
 class MainAppTest(unittest.TestCase):
@@ -18,9 +24,14 @@ class MainAppTest(unittest.TestCase):
         cli.onecmd("create_parking_lot 8")
         self.assertEqual(sys.stdout.getvalue().strip(), "Created a parking lot with 8 slots")
 
+    @patch.dict(LOT, {1: True, 2: False, 3: False, 4: False}, clear=True)
+    @patch.dict(DATA, {}, clear=True)
+    @patch.dict(R_NO_COLOR, {}, clear=True)
+    @patch.dict(SLOT_NO_REG, {}, clear=True)
+    @patch.dict(SLOT_NO_COLOR, {}, clear=True)
     def test_do_park(self):
         cli = self.create()
-        cli.onecmd("park KA-01-HH-1234")
+        cli.onecmd("park KA-01-HH-1234 White")
         self.assertEqual(sys.stdout.getvalue().strip(), "Allocated slot number: 2")
 
 
