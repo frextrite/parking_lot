@@ -73,6 +73,11 @@ class ParkingLotTest(unittest.TestCase):
         status()
         self.assertEqual(sys.stdout.getvalue().strip(), "Slot No.\tRegistration No.\tColor\n2\tKA-01-HH-1234\tWhite\n4\tKA-01-HH-9999\tWhite")
 
+    @patch.dict(R_NO_COLOR, {"White": ["KA-01-HH-1234", "KA-01-HH-9999"]}, clear=True)
+    def test_registration_numbers_for_cars_with_colour(self):
+        color = "White"
+        self.assertEqual(sys.stdout.getvalue().strip(), "KA-01-HH-1234, KA-01-HH-9999")
+
 
 if __name__ == "__main__":
     unittest.main()
