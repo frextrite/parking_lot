@@ -1,13 +1,13 @@
 import cmd
 
-from parking_lot.src.app import (create_parking_lot, 
-                                 park,
-                                 leave,
-                                 status,
-                                 registration_numbers_for_cars_with_colour,
-                                 slot_numbers_for_cars_with_colour,
-                                 slot_number_for_registration_number_exists)
-from parking_lot.src.app import DATA, LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
+from src.app import (create_parking_lot, 
+                     park,
+                     leave,
+                     status,
+                     registration_numbers_for_cars_with_colour,
+                     slot_numbers_for_cars_with_colour,
+                     slot_number_for_registration_number_exists)
+from src.app import DATA, LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
 
 
 class ParkingLot(cmd.Cmd):
@@ -47,3 +47,16 @@ class ParkingLot(cmd.Cmd):
         args_list = self.parse_args(args)
         color = args_list[0]
         registration_numbers_for_cars_with_colour(color)
+
+
+if __name__ == "__main__":
+    import sys
+    try:
+        input = open(sys.argv[1], 'rt')
+        pl = ParkingLot(stdin=input)
+        pl.prompt = ''
+        pl.cmdloop()
+    except IndexError:
+        pl = ParkingLot()
+        pl.prompt = '> '
+        pl.cmdloop()
