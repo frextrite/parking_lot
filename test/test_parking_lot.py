@@ -4,7 +4,7 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 
-from parking_lot.src.app import create_parking_lot, park
+from parking_lot.src.app import create_parking_lot, park, leave
 from parking_lot.src.app import DATA, LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
 
 
@@ -50,6 +50,7 @@ class ParkingLotTest(unittest.TestCase):
         registration_number = "KA-01-HH-1234"
         color = "White"
 
+        leave(slot)
         self.assertDictEqual(R_NO_COLOR, {color: []})
         self.assertDictEqual(SLOT_NO_REG, {})
         self.assertDictEqual(SLOT_NO_COLOR, {color: []})
