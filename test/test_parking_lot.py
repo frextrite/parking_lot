@@ -5,7 +5,7 @@ from io import StringIO
 from unittest.mock import patch
 
 from parking_lot.src.app import create_parking_lot, park
-from parking_lot.src.app import lot, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
+from parking_lot.src.app import LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
 
 
 class ParkingLotTest(unittest.TestCase):
@@ -25,10 +25,10 @@ class ParkingLotTest(unittest.TestCase):
                            6: False}
         expected_print = f"Created a parking lot with {slots} slots"
         create_parking_lot(slots)
-        self.assertDictEqual(lot, expected_output)
+        self.assertDictEqual(LOT, expected_output)
         self.assertEqual(sys.stdout.getvalue().strip(), expected_print)
 
-    @patch.dict(lot, {1: False}, clear=True)
+    @patch.dict(LOT, {1: False}, clear=True)
     def test_park(self):
         registration_number = "KA-01-HH-1234"
         color = "White"
