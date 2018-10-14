@@ -18,6 +18,11 @@ class MainAppTest(unittest.TestCase):
         cli.onecmd("create_parking_lot 8")
         self.assertEqual(sys.stdout.getvalue().strip(), "Created a parking lot with 8 slots")
 
+    def test_do_park(self):
+        cli = self.create()
+        cli.onecmd("park KA-01-HH-1234")
+        self.assertEqual(sys.stdout.getvalue().strip(), "Allocated slot number: 2")
+
 
 if __name__ == "__main__":
     unittest.main()
