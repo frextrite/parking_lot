@@ -28,15 +28,15 @@ class ParkingLotTest(unittest.TestCase):
         self.assertDictEqual(LOT, expected_output)
         self.assertEqual(sys.stdout.getvalue().strip(), expected_print)
 
-    @patch.dict(LOT, {1: False}, clear=True)
+    @patch.dict(LOT, {1: True, 2: False, 3: True, 4: False, 5: False}, clear=True)
     def test_park(self):
         registration_number = "KA-01-HH-1234"
         color = "White"
         park(registration_number, color)
         self.assertDictEqual(R_NO_COLOR, {color: [registration_number]})
-        self.assertDictEqual(SLOT_NO_REG, {registration_number: 1})
-        self.assertDictEqual(SLOT_NO_COLOR, {color: [1]})
-        self.assertEqual(sys.stdout.getvalue().strip(), f"Allocated slot number: 1")
+        self.assertDictEqual(SLOT_NO_REG, {registration_number: 2})
+        self.assertDictEqual(SLOT_NO_COLOR, {color: [2]})
+        self.assertEqual(sys.stdout.getvalue().strip(), f"Allocated slot number: 2")
 
 
 if __name__ == "__main__":
