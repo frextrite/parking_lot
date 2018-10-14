@@ -32,3 +32,13 @@ class ParkingLot(cmd.Cmd):
 
     def do_status(self, args):
         status()
+
+    def do_slot_numbers_for_cars_with_colour(self, args):
+        args_list = self.parse_args(args)
+        color = args_list[0]
+        slot_numbers_for_cars_with_colour(color)
+
+    def do_slot_number_for_registration_number_exists(self, args):
+        args_list = self.parse_args(args)
+        registration_number = args_list[0]
+        slot_number_for_registration_number_exists(registration_number)
