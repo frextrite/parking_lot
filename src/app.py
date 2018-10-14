@@ -19,6 +19,10 @@ def park(registration_number, color):
             slot = i
             break
 
+    if slot == 0:
+        print("Sorry, parking lot is full")
+        return
+
     DATA[slot] = dict(registration_number=registration_number, color=color)
 
     if color not in R_NO_COLOR:
