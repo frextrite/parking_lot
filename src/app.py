@@ -16,6 +16,7 @@ def park(registration_number, color):
         if LOT[i] is False:
             LOT[i] = True
             slot = i
+            break
 
     if color not in R_NO_COLOR:
         R_NO_COLOR[color] = [registration_number]
