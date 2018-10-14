@@ -41,6 +41,7 @@ class ParkingLotTest(unittest.TestCase):
         self.assertEqual(sys.stdout.getvalue().strip(), f"Allocated slot number: 2")
 
     @patch.dict(LOT, {1: False, 2: True}, clear=True)
+    @patch.dict(DATA, {2: {'registration_number': "KA-01-HH-1234", 'color': "White"}}, clear=True)
     @patch.dict(R_NO_COLOR, {"White": ["KA-01-HH-1234"]}, clear=True)
     @patch.dict(SLOT_NO_REG, {"KA-01-HH-1234": 2}, clear=True)
     @patch.dict(SLOT_NO_COLOR, {"White": [2]}, clear=True)
