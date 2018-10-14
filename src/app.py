@@ -58,3 +58,10 @@ def leave(slot):
         SLOT_NO_COLOR[color].remove(slot)
 
     print(f"Slot number {slot} is free")
+
+
+def status():
+    print("Slot No.\tRegistration No.\tColor")
+    for slot in LOT:
+        if LOT[slot] is True:
+            print(f"{slot}\t{DATA[slot]['registration_number']}\t{DATA[slot]['color']}")
