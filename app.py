@@ -48,6 +48,9 @@ class ParkingLot(cmd.Cmd):
         color = args_list[0]
         registration_numbers_for_cars_with_colour(color)
 
+    def do_exit(self, args):
+        return True
+
 
 if __name__ == "__main__":
     import sys
