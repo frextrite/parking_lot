@@ -11,4 +11,23 @@ def create_parking_lot(n):
 
 
 def park(registration_number, color):
-    pass
+    slot = 0
+    for i in LOT.keys():
+        if LOT[i] is False:
+            LOT[i] = True
+            slot = i
+
+    if color not in R_NO_COLOR:
+        R_NO_COLOR[color] = [registration_number]
+    else:
+        R_NO_COLOR[color].append(registration_number)
+
+    if registration_number not in SLOT_NO_REG:
+        SLOT_NO_REG[registration_number] = slot
+
+    if color not in SLOT_NO_COLOR:
+        SLOT_NO_COLOR[color] = [slot]
+    else:
+        SLOT_NO_COLOR[color].append(slot)
+
+    print(f"Allocated slot number: {slot}")
