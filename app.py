@@ -6,7 +6,7 @@ from src.app import (create_parking_lot,
                      status,
                      registration_numbers_for_cars_with_colour,
                      slot_numbers_for_cars_with_colour,
-                     slot_number_for_registration_number_exists)
+                     slot_number_for_registration_number)
 from src.app import DATA, LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
 
 
@@ -38,10 +38,10 @@ class ParkingLot(cmd.Cmd):
         color = args_list[0]
         slot_numbers_for_cars_with_colour(color)
 
-    def do_slot_number_for_registration_number_exists(self, args):
+    def do_slot_number_for_registration_number(self, args):
         args_list = self.parse_args(args)
         registration_number = args_list[0]
-        slot_number_for_registration_number_exists(registration_number)
+        slot_number_for_registration_number(registration_number)
 
     def do_registration_numbers_for_cars_with_colour(self, args):
         args_list = self.parse_args(args)
@@ -57,6 +57,7 @@ if __name__ == "__main__":
     try:
         input = open(sys.argv[1], 'rt')
         pl = ParkingLot(stdin=input)
+        pl.use_rawinput = False
         pl.prompt = ''
         pl.cmdloop()
     except IndexError:
