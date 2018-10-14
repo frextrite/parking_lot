@@ -18,3 +18,9 @@ class ParkingLot(cmd.Cmd):
         args_list = self.parse_args(args)
         slots = int(args_list[0])
         create_parking_lot(slots)
+
+    def do_park(self, args):
+        args_list = self.parse_args(args)
+        registration_number = args_list[0]
+        color = args_list[1]
+        park(registration_number, color)
