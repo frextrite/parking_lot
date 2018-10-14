@@ -35,3 +35,22 @@ def park(registration_number, color):
         SLOT_NO_COLOR[color].append(slot)
 
     print(f"Allocated slot number: {slot}")
+
+
+def leave(slot):
+    if LOT[slot] is True:
+        LOT[slot] = False
+
+    registration_number = DATA[slot]['registration_number']
+    color = DATA[slot]['color']
+
+    if color in R_NO_COLOR:
+        R_NO_COLOR[color].remove(registration_number)
+
+    if registration_number in SLOT_NO_REG:
+        SLOT_NO_REG.pop(registration_number)
+
+    if color in SLOT_NO_COLOR:
+        SLOT_NO_COLOR[color].remove(slot)
+
+    print(f"Slot number {slot} is free")
