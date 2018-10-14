@@ -2,6 +2,7 @@ import sys
 import unittest
 
 from io import StringIO
+from unittest.mock import MagicMock
 from unittest.mock import patch
 
 from parking_lot.app import ParkingLot
@@ -19,40 +20,42 @@ class MainAppTest(unittest.TestCase):
     def create(self):
         return ParkingLot()
 
-    def test_do_create_parking_lot(self):
+    @patch('parking_lot.app.create_parking_lot')
+    def test_do_create_parking_lot(self, mock_create_parking_lot):
         cli = self.create()
         cli.onecmd("create_parking_lot 8")
-        self.assertEqual(sys.stdout.getvalue().strip(), "Created a parking lot with 8 slots")
+        mock_create_parking_lot.assert_called_once_with(8)
 
-    @patch.dict(LOT, {1: True, 2: False, 3: False, 4: False}, clear=True)
-    @patch.dict(DATA, {}, clear=True)
-    @patch.dict(R_NO_COLOR, {}, clear=True)
-    @patch.dict(SLOT_NO_REG, {}, clear=True)
-    @patch.dict(SLOT_NO_COLOR, {}, clear=True)
-    def test_do_park(self):
+    @patch('parking_lot.app.park')
+    def test_do_park(self, mock_park):
         cli = self.create()
         cli.onecmd("park KA-01-HH-1234 White")
-        self.assertEqual(sys.stdout.getvalue().strip(), "Allocated slot number: 2")
+        mock_park.assert_called_once_with("KA-01-HH-1234", "White")
 
-    @patch.dict(LOT, {1: False, 2: True, 3: False, 4: True}, clear=True)
-    @patch.dict(DATA, {2: {'registration_number': "KA-01-HH-1234", 'color': "White"}, 4: {'registration_number': "KA-01-HH-9999", 'color': "White"}}, clear=True)
-    @patch.dict(R_NO_COLOR, {"White": ["KA-01-HH-1234", "KA-01-HH-9999"]}, clear=True)
-    @patch.dict(SLOT_NO_REG, {"KA-01-HH-1234": 2, "KA-01-HH-9999": 4}, clear=True)
-    @patch.dict(SLOT_NO_COLOR, {"White": [2, 4]}, clear=True)
-    def test_do_leave(self):
+    @patch('parking_lot.app.leave')
+    def test_do_leave(self, mock_leave):
         cli = self.create()
         cli.onecmd("leave 4")
-        self.assertEqual(sys.stdout.getvalue().strip(), "Slot number 4 is free")
+        mock_leave.assert_called_once_with(4)
 
-    @patch.dict(LOT, {1: False, 2: True, 3: False, 4: True}, clear=True)
-    @patch.dict(DATA, {2: {'registration_number': "KA-01-HH-1234", 'color': "White"}, 4: {'registration_number': "KA-01-HH-9999", 'color': "White"}}, clear=True)
-    @patch.dict(R_NO_COLOR, {"White": ["KA-01-HH-1234", "KA-01-HH-9999"]}, clear=True)
-    @patch.dict(SLOT_NO_REG, {"KA-01-HH-1234": 2, "KA-01-HH-9999": 4}, clear=True)
-    @patch.dict(SLOT_NO_COLOR, {"White": [2, 4]}, clear=True)
-    def test_status(self):
+    @patch('parking_lot.app.status')
+    def test_do_status(self, mock_status):
         cli = self.create()
         cli.onecmd("status")
-        self.assertEqual(sys.stdout.getvalue().strip(), "Slot No.\tRegistration No.\tColor\n2\tKA-01-HH-1234\tWhite\n4\tKA-01-HH-9999\tWhite")
+        mock_status.assert_called_once()
+
+    @patch('parking_lot.app.slot_numbers_for_cars_with_colour')
+    def test_do_slot_numbers_for_cars_with_colour(self, mock_slot_numbers_for_cars_with_colour):
+        cli = self.create()
+        cli.onecmd("slot_numbers_for_cars_with_colour White")
+        mock_slot_numbers_for_cars_with_colour.assert_called_once_with("White")
+
+    @patch('parking_lot.app.slot_number_for_registration_number_exists')
+    def test_do_slot_number_for_registration_number_exists(self, mock_slot_number_for_registration_number_exists):
+        cli = self.create()
+        cli.onecmd("slot_number_for_registration_number_exists KA-01-HH-1234")
+        mock_slot_number_for_registration_number_exists.assert_called_once_with("KA-01-HH-1234")
+
 
 if __name__ == "__main__":
     unittest.main()
