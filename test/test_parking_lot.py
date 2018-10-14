@@ -5,7 +5,7 @@ from io import StringIO
 from unittest.mock import patch
 
 from parking_lot.src.app import create_parking_lot, park
-from parking_lot.src.app import LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
+from parking_lot.src.app import DATA, LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
 
 
 class ParkingLotTest(unittest.TestCase):
@@ -29,17 +29,19 @@ class ParkingLotTest(unittest.TestCase):
         self.assertEqual(sys.stdout.getvalue().strip(), expected_print)
 
     @patch.dict(LOT, {1: True, 2: False, 3: True, 4: False, 5: False}, clear=True)
+    @patch.dict(DATA, {}, clear=True)
     def test_park(self):
         registration_number = "KA-01-HH-1234"
         color = "White"
         park(registration_number, color)
+        self.assertDictEqual(DATA, {2: {'registration_number': registration_number, 'color': color}})
         self.assertDictEqual(R_NO_COLOR, {color: [registration_number]})
         self.assertDictEqual(SLOT_NO_REG, {registration_number: 2})
         self.assertDictEqual(SLOT_NO_COLOR, {color: [2]})
         self.assertEqual(sys.stdout.getvalue().strip(), f"Allocated slot number: 2")
 
     @patch.dict(LOT, {1: False, 2: True}, clear=True)
-    @patch.dict(R_NO_COLOR, {"White": "KA-01-HH-1234"}, clear=True)
+    @patch.dict(R_NO_COLOR, {"White": ["KA-01-HH-1234"]}, clear=True)
     @patch.dict(SLOT_NO_REG, {"KA-01-HH-1234": 2}, clear=True)
     @patch.dict(SLOT_NO_COLOR, {"White": [2]}, clear=True)
     def test_leave(self):

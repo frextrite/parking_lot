@@ -1,4 +1,5 @@
 LOT = dict()
+DATA = dict()
 R_NO_COLOR = dict()
 SLOT_NO_REG = dict()
 SLOT_NO_COLOR = dict()
@@ -17,6 +18,8 @@ def park(registration_number, color):
             LOT[i] = True
             slot = i
             break
+
+    DATA[slot] = dict(registration_number=registration_number, color=color)
 
     if color not in R_NO_COLOR:
         R_NO_COLOR[color] = [registration_number]
