@@ -4,7 +4,7 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 
-from parking_lot.src.app import create_parking_lot, park, leave
+from parking_lot.src.app import create_parking_lot, park, leave, status
 from parking_lot.src.app import DATA, LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
 
 
@@ -63,6 +63,15 @@ class ParkingLotTest(unittest.TestCase):
         self.assertDictEqual(SLOT_NO_REG, {})
         self.assertDictEqual(SLOT_NO_COLOR, {color: []})
         self.assertEqual(sys.stdout.getvalue().strip(), f"Slot number {slot} is free")
+
+    @patch.dict(LOT, {1: False, 2: True, 3: False, 4: True}, clear=True)
+    @patch.dict(DATA, {2: {'registration_number': "KA-01-HH-1234", 'color': "White"}, 4: {'registration_number': "KA-01-HH-9999", 'color': "White"}}, clear=True)
+    @patch.dict(R_NO_COLOR, {"White": ["KA-01-HH-1234", "KA-01-HH-9999"]}, clear=True)
+    @patch.dict(SLOT_NO_REG, {"KA-01-HH-1234": 2, "KA-01-HH-9999": 4}, clear=True)
+    @patch.dict(SLOT_NO_COLOR, {"White": [2, 4]}, clear=True)
+    def test_status(self):
+        status()
+        self.assertEqual(sys.stdout.getvalue().strip(), "Slot No.\tRegistration No.\tColor\n2\tKA-01-HH-1234\tWhite\n4\tKA-01-HH-9999\tWhite")
 
 
 if __name__ == "__main__":
