@@ -51,6 +51,9 @@ class ParkingLot(cmd.Cmd):
     def do_exit(self, args):
         return True
 
+    def do_EOF(self, args):
+        return True
+
 
 if __name__ == "__main__":
     import sys
