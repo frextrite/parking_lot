@@ -75,3 +75,13 @@ def registration_numbers_for_cars_with_colour(color):
 
     string = string[:-2]
     print(string)
+
+
+def slot_numbers_for_cars_with_colour(color):
+    string = ""
+    if color in SLOT_NO_COLOR:
+        for slot in SLOT_NO_COLOR[color]:
+            string += str(slot) + ", "
+
+    string = string[:-2]
+    print(string)
