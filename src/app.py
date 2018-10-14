@@ -65,3 +65,13 @@ def status():
     for slot in LOT:
         if LOT[slot] is True:
             print(f"{slot}\t{DATA[slot]['registration_number']}\t{DATA[slot]['color']}")
+
+
+def registration_numbers_for_cars_with_colour(color):
+    string = ""
+    if color in R_NO_COLOR:
+        for reg in R_NO_COLOR[color]:
+            string += reg + ", "
+
+    string = string[:-2]
+    print(string)
