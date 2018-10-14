@@ -33,9 +33,10 @@ class ParkingLotTest(unittest.TestCase):
         registration_number = "KA-01-HH-1234"
         color = "White"
         park(registration_number, color)
-        self.assertDictEqual(R_NO_COLOR, {color: registration_number})
+        self.assertDictEqual(R_NO_COLOR, {color: [registration_number]})
         self.assertDictEqual(SLOT_NO_REG, {registration_number: 1})
         self.assertDictEqual(SLOT_NO_COLOR, {color: [1]})
+        self.assertEqual(sys.stdout.getvalue().strip(), f"Allocated slot number: 1")
 
 
 if __name__ == "__main__":
