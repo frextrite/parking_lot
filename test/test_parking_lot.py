@@ -4,7 +4,7 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 
-from parking_lot.src.app import create_parking_lot, park, leave, status, registration_numbers_for_cars_with_colour
+from parking_lot.src.app import create_parking_lot, park, leave, status, registration_numbers_for_cars_with_colour, slot_numbers_for_cars_with_colour
 from parking_lot.src.app import DATA, LOT, R_NO_COLOR, SLOT_NO_REG, SLOT_NO_COLOR
 
 
@@ -78,6 +78,12 @@ class ParkingLotTest(unittest.TestCase):
         color = "White"
         registration_numbers_for_cars_with_colour(color)
         self.assertEqual(sys.stdout.getvalue().strip(), "KA-01-HH-1234, KA-01-HH-9999")
+
+    @patch.dict(SLOT_NO_COLOR, {"White": [2, 4]}, clear=True)
+    def test_slot_numbers_for_cars_with_colour(self):
+        color = "White"
+        slot_numbers_for_cars_with_colour(color)
+        self.assertEqual(sys.stdout.getvalue().strip(), "2, 4")
 
 
 if __name__ == "__main__":
