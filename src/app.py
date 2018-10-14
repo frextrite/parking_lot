@@ -85,3 +85,13 @@ def slot_numbers_for_cars_with_colour(color):
 
     string = string[:-2]
     print(string)
+
+
+def slot_number_for_registration_number_exists(registration_number):
+    string = ""
+    if registration_number in SLOT_NO_REG:
+        string = str(SLOT_NO_REG[registration_number])
+    else:
+        string = "Not found"
+
+    print(string)
