@@ -34,6 +34,16 @@ class MainAppTest(unittest.TestCase):
         cli.onecmd("park KA-01-HH-1234 White")
         self.assertEqual(sys.stdout.getvalue().strip(), "Allocated slot number: 2")
 
+    @patch.dict(LOT, {1: False, 2: True, 3: False, 4: True}, clear=True)
+    @patch.dict(DATA, {2: {'registration_number': "KA-01-HH-1234", 'color': "White"}, 4: {'registration_number': "KA-01-HH-9999", 'color': "White"}}, clear=True)
+    @patch.dict(R_NO_COLOR, {"White": ["KA-01-HH-1234", "KA-01-HH-9999"]}, clear=True)
+    @patch.dict(SLOT_NO_REG, {"KA-01-HH-1234": 2, "KA-01-HH-9999": 4}, clear=True)
+    @patch.dict(SLOT_NO_COLOR, {"White": [2, 4]}, clear=True)
+    def test_do_leave(self):
+        cli = self.create()
+        cli.onecmd("leave 4")
+        self.assertEqual(sys.stdout.getvalue().strip(), "Slot number 4 is free")
+
 
 if __name__ == "__main__":
     unittest.main()
