@@ -56,6 +56,12 @@ class MainAppTest(unittest.TestCase):
         cli.onecmd("slot_number_for_registration_number_exists KA-01-HH-1234")
         mock_slot_number_for_registration_number_exists.assert_called_once_with("KA-01-HH-1234")
 
+    @patch('parking_lot.app.registration_numbers_for_cars_with_colour')
+    def test_do_registration_numbers_for_cars_with_colour(self, mock_registration_numbers_for_cars_with_colour):
+        cli = self.create()
+        cli.onecmd("registration_numbers_for_cars_with_colour White")
+        mock_registration_numbers_for_cars_with_colour.assert_called_once_with("White")
+
 
 if __name__ == "__main__":
     unittest.main()
