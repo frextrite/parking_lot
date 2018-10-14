@@ -29,3 +29,6 @@ class ParkingLot(cmd.Cmd):
         args_list = self.parse_args(args)
         slot = int(args_list[0])
         leave(slot)
+
+    def do_status(self, args):
+        status()
