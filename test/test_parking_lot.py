@@ -21,6 +21,7 @@ class ParkingLotTest(unittest.TestCase):
     def test_file(self):
         pass
 
+    @patch.dict(LOT, {}, clear=True)
     def test_create_parking_lot(self):
         slots = 6
         expected_output = {1: False,
