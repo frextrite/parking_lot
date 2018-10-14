@@ -24,3 +24,8 @@ class ParkingLot(cmd.Cmd):
         registration_number = args_list[0]
         color = args_list[1]
         park(registration_number, color)
+
+    def do_leave(self, args):
+        args_list = self.parse_args(args)
+        slot = int(args_list[0])
+        leave(slot)
