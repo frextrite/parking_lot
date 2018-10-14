@@ -20,3 +20,14 @@ out:
 - Registration numbers of all cars of a particular colour.
 - Slot number in which a car with a given registration number is parked.
 - Slot numbers of all slots where a car of a particular colour is parked.
+
+## Requirements
+- Python3.6+
+- ```nose2``` for running the tests
+- ```unittest``` python module
+
+## Running the Application
+Manual Input: ```python3 app.py```
+Automatic Input(File): ```python3 app.py input.txt```
+
+###### Note: Error checking is currently minimal which should run the test cases just fine. Expect crashes if faulty input is given.
