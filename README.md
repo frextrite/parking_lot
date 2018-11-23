@@ -1,4 +1,4 @@
-# Parking Lot - Amol Grover
+# Parking Lot Simulator
 
 I own a multi-storey parking lot that can hold up to 'n' cars at any given point in time.
 Each slot is given a number starting at 1 increasing with increasing distance from the
