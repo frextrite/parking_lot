@@ -28,6 +28,7 @@ out:
 
 ## Running the Application
 Manual Input: ```python3 app.py```
+
 Automatic Input(File): ```python3 app.py input.txt```
 
 ###### Note: Error checking is currently minimal which should run the test cases just fine. Expect crashes if faulty input is given.
